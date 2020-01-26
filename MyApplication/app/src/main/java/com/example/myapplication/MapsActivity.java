@@ -34,6 +34,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -74,8 +75,60 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        System.out.println("I made it boys");
-        System.out.println("I made it boys PART2");
+
+
+
+        /////////////////////loationaondo
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // get the last know location from your location manager.
+        final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        // now get the lat/lon from the location and do something with it.
+        System.out.println(location.getLatitude());
+        System.out.println(location.getLongitude());
+
+        class MyLocationListener implements LocationListener {
+            public void onLocationChanged(Location loc) {
+                String message = String.format(
+                        "New Location \n Longitude: %1$s \n Latitude: %2$s",
+                        loc.getLongitude(), loc.getLatitude()
+                );
+            }
+
+            public void onProviderDisabled(String arg0) {
+            }
+
+            public void onProviderEnabled(String provider) {
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                lon = location.getLongitude();
+                lats = location.getLatitude();
+
+                System.out.println(lats);
+                System.out.println(lon);
+            }
+        }
+
+
+    }
+
+
+    /**
+     * Manipulates the map once available.
+     * This callback is triggered when the map is ready to be used.
+     * This is where we can add markers or lines, add listeners or move the camera. In this case,
+     * we just add a marker near Sydney, Australia.
+     * If Google Play services is not installed on the device, the user will be prompted to install
+     * it inside the SupportMapFragment. This method will only be triggered once the user has
+     * installed Google Play services and returned to the app.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
 
 
         BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAYO4MKXNF6QPMVBV3", "MiuoNvqvtGE9/xpnzQhIQGbjejGiWxD9xW3ECfYJ");
@@ -114,7 +167,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         BlueLight[] lightArray = new BlueLight[15];
 
-        System.out.println("PAST SCANREQUEST!");
         int i = 0;
         int counter = 0;
         String number = "";
@@ -157,72 +209,172 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         }
-        /////////////////////loationaondo
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
+
+        int helper = 1;
+        if (helper == indexOfShortest) {
+            LatLng light1 = new LatLng(29.64997, 277.65287);
+            mMap.addMarker(new MarkerOptions().position(light1).title("Light 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light1));
         }
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // get the last know location from your location manager.
-        final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        // now get the lat/lon from the location and do something with it.
-        System.out.println(location.getLatitude());
-        System.out.println(location.getLongitude());
-
-        class MyLocationListener implements LocationListener {
-            public void onLocationChanged(Location loc) {
-                String message = String.format(
-                        "New Location \n Longitude: %1$s \n Latitude: %2$s",
-                        loc.getLongitude(), loc.getLatitude()
-                );
-            }
-
-            public void onProviderDisabled(String arg0) {
-            }
-
-            public void onProviderEnabled(String provider) {
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                lon = location.getLongitude();
-                lats = location.getLatitude();
-
-                System.out.println(lats);
-                System.out.println(lon);
-            }
+        else {
+            LatLng light1 = new LatLng(29.64997, 277.65287);
+            mMap.addMarker(new MarkerOptions().position(light1).title("Light 1").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light1));
         }
-    }
-
-
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.M)
-    @Override
-    public void onMapReady(GoogleMap googleMap) {
-        mMap = googleMap;
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // get the last know location from your location manager.
-        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            //    Activity#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light2 = new LatLng(29.6504, 277.65254);
+            mMap.addMarker(new MarkerOptions().position(light2).title("Light 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light2));
         }
-        final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        lats = location.getLatitude();
-        lon = location.getLongitude();
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(lats, lon);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        else {
+            LatLng light2 = new LatLng(29.6504, 277.65254);
+            mMap.addMarker(new MarkerOptions().position(light2).title("Light 2").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light2));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light3 = new LatLng(29.64967, 277.65354);
+            mMap.addMarker(new MarkerOptions().position(light3).title("Light 3").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light3));
+        }
+        else {
+            LatLng light3 = new LatLng(29.64967, 277.65354);
+            mMap.addMarker(new MarkerOptions().position(light3).title("Light 3").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light3));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light4 = new LatLng(29.65036, 277.65408);
+            mMap.addMarker(new MarkerOptions().position(light4).title("Light 4").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light4));
+        }
+        else {
+            LatLng light4 = new LatLng(29.65036, 277.65408);
+            mMap.addMarker(new MarkerOptions().position(light4).title("Light 4").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light4));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light5 = new LatLng(29.65021, 277.65454);
+            mMap.addMarker(new MarkerOptions().position(light5).title("Light 5").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light5));
+        }
+        else {
+            LatLng light5 = new LatLng(29.65021, 277.65454);
+            mMap.addMarker(new MarkerOptions().position(light5).title("Light 5").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light5));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light6 = new LatLng(29.6516, 277.65582);
+            mMap.addMarker(new MarkerOptions().position(light6).title("Light 6").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light6));
+        }
+        else {
+            LatLng light6 = new LatLng(29.6516, 277.65582);
+            mMap.addMarker(new MarkerOptions().position(light6).title("Light 6").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light6));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light7 = new LatLng(29.65137, 277.65608);
+            mMap.addMarker(new MarkerOptions().position(light7).title("Light 7").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light7));
+        }
+        else {
+            LatLng light7 = new LatLng(29.65137, 277.65608);
+            mMap.addMarker(new MarkerOptions().position(light7).title("Light 7").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light7));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light8 = new LatLng(29.65035, 277.65708);
+            mMap.addMarker(new MarkerOptions().position(light8).title("Light 8").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light8));
+        }
+        else {
+            LatLng light8 = new LatLng(29.65035, 277.65708);
+            mMap.addMarker(new MarkerOptions().position(light8).title("Light 8").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light8));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light9 = new LatLng(29.64873, 277.65535);
+            mMap.addMarker(new MarkerOptions().position(light9).title("Light 9").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light9));
+        }
+        else {
+            LatLng light9 = new LatLng(29.64873, 277.65535);
+            mMap.addMarker(new MarkerOptions().position(light9).title("Light 9").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light9));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light10 = new LatLng(29.6513, 277.65847);
+            mMap.addMarker(new MarkerOptions().position(light10).title("Light 10").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light10));
+        }
+        else {
+            LatLng light10 = new LatLng(29.6513, 277.65847);
+            mMap.addMarker(new MarkerOptions().position(light10).title("Light 10").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light10));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light11 = new LatLng(29.65194, 277.65821);
+            mMap.addMarker(new MarkerOptions().position(light11).title("Light 11").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light11));
+        }
+        else {
+            LatLng light11 = new LatLng(29.65194, 277.65821);
+            mMap.addMarker(new MarkerOptions().position(light11).title("Light 11").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light11));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light12 = new LatLng(29.65069, 277.65938);
+            mMap.addMarker(new MarkerOptions().position(light12).title("Light 12").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light12));
+        }
+        else {
+            LatLng light12 = new LatLng(29.65069, 277.65938);
+            mMap.addMarker(new MarkerOptions().position(light12).title("Light 12").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light12));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light13 = new LatLng(29.64971, 277.65881);
+            mMap.addMarker(new MarkerOptions().position(light13).title("Light 13").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light13));
+        }
+        else {
+            LatLng light13 = new LatLng(29.64971, 277.65881);
+            mMap.addMarker(new MarkerOptions().position(light13).title("Light 13").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light13));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light14 = new LatLng(29.65099, 277.6601);
+            mMap.addMarker(new MarkerOptions().position(light14).title("Light 14").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light14));
+        }
+        else {
+            LatLng light14 = new LatLng(29.65099, 277.6601);
+            mMap.addMarker(new MarkerOptions().position(light14).title("Light 14").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light14));
+        }
+        helper++;
+        if (helper == indexOfShortest) {
+            LatLng light15 = new LatLng(29.65191, 277.66037);
+            mMap.addMarker(new MarkerOptions().position(light15).title("Light 15").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light15));
+        }
+        else {
+            LatLng light15 = new LatLng(29.65191, 277.66037);
+            mMap.addMarker(new MarkerOptions().position(light15).title("Light 15").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(light15));
+        }
+        mMap.setMinZoomPreference(15);
     }
 }
