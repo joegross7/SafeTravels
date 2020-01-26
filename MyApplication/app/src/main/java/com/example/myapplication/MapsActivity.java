@@ -85,9 +85,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         ScanResult result = foo.getValue();
 
-
+        BlueLight[] lightArray = new BlueLight[15];
 
         System.out.println("PAST SCANREQUEST!");
+        int i = 0;
         int counter = 0;
         String number = "";
         String longi = "";
@@ -114,6 +115,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             System.out.println(lat);
             System.out.print("Longitude: ");
             System.out.println(longi);
+            lightArray[i] = new BlueLight(Integer.valueOf(number),Double.valueOf(lat),Double.valueOf(longi));
+            i++;
         }
     }
 
