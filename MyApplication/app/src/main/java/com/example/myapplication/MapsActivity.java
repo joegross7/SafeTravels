@@ -21,8 +21,11 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -86,22 +89,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         System.out.println("PAST SCANREQUEST!");
         int counter = 0;
-        String lat = "";
+        String number = "";
         String longi = "";
+        String lat = "";
+        List<String> coord = new ArrayList<>();
+
         for (Map<String, AttributeValue> item : result.getItems()) {
             Set<String> locations = item.keySet();
             counter = 0;
             for (String location : locations) {
                 if (counter == 0) {
-                    lat = item.get(location).toString();
+                    number = item.get(location).getN();
                 } else if (counter == 1) {
-                    longi = item.get(location).toString();
+                    coord = item.get(location).getSS();
+
                 }
                 counter++;
             }
-            System.out.print("LAT: ");
+            longi = coord.get(0);
+            lat = coord.get(1);
+            System.out.print("Number: ");
+            System.out.println(number);
+            System.out.print("Latitude: ");
             System.out.println(lat);
-            System.out.print("Longi: ");
+            System.out.print("Longitude: ");
             System.out.println(longi);
         }
     }
