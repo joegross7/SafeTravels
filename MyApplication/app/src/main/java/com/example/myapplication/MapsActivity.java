@@ -372,6 +372,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(light15).title("Light 15").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(light15));
         }
-        mMap.setMinZoomPreference(15);
+        LatLng light16 = new LatLng(29.65035, 277.65628);
+        mMap.addMarker(new MarkerOptions().position(light16).title("Light 15").visible(false));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(light16));
+
+        mMap.setMinZoomPreference(16);
     }
 }
