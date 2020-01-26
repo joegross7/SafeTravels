@@ -32,10 +32,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        BasicAWSCredentials awsCreds = new BasicAWSCredentials("ACCESSKEY", "SECRET");
+        BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAYO4MKXNF6QPMVBV3", "MiuoNvqvtGE9/xpnzQhIQGbjejGiWxD9xW3ECfYJ");
         AmazonDynamoDB ddb = new AmazonDynamoDBClient(awsCreds);
-
-    }
 
 
     /**
