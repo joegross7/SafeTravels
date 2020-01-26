@@ -122,7 +122,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             lightArray[i] = new BlueLight(Integer.valueOf(number), Double.valueOf(lat), Double.valueOf(longi));
             i++;
         }
-        
+
         double currentShortest = 200;
         int indexOfShortest = 0;
 
