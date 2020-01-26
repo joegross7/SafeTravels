@@ -190,17 +190,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 System.out.println(lon);
             }
         }
-        Button arrivalButton = (Button)findViewById(R.id.arrived_button);
-        arrivalButton.setOnClickListener(new View.OnClickListener() {
-            
-            @Override
-            public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), MapsActivity.class);
-                //how to pass information
-                startActivity(startIntent);
-            }
-        });
-
     }
 
 
