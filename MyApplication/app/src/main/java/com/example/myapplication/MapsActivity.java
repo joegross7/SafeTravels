@@ -21,14 +21,26 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 
+
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    /*
+    public static double distanceForm(int number, double currentLat, double CurrenLongi, ){
+        lat = do
+        distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
+        return distance
+    }
+     */
 
     private GoogleMap mMap;
 
@@ -82,27 +94,71 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         ScanResult result = foo.getValue();
 
-
+        BlueLight[] lightArray = new BlueLight[15];
 
         System.out.println("PAST SCANREQUEST!");
+        int i = 0;
         int counter = 0;
-        String lat = "";
+        String number = "";
         String longi = "";
+        String lat = "";
+        List<String> coord = new ArrayList<>();
+
         for (Map<String, AttributeValue> item : result.getItems()) {
             Set<String> locations = item.keySet();
             counter = 0;
             for (String location : locations) {
                 if (counter == 0) {
-                    lat = item.get(location).toString();
+                    number = item.get(location).getN();
                 } else if (counter == 1) {
-                    longi = item.get(location).toString();
+                    coord = item.get(location).getSS();
+
                 }
                 counter++;
             }
-            System.out.print("LAT: ");
-            System.out.println(lat);
-            System.out.print("Longi: ");
-            System.out.println(longi);
+            longi = coord.get(0);
+            lat = coord.get(1);
+
+            lightArray[i] = new BlueLight(Integer.valueOf(number), Double.valueOf(lat), Double.valueOf(longi));
+            i++;
+        }
+
+/*
+            double currentShortest = 200;
+            int indexOfShortest = 0;
+            double tempLat = 1;
+            double tempLongi = 1;
+            double latDist = 1;
+            double longDist = 1;
+            double distance = 0;
+            for (int y = 0; y < 15; y++) {
+                tempLat = lightArray[y].lat;
+                tempLongi = lightArray[y].longi;
+                latDist = tempLat - 29.65;
+                longDist = tempLongi - 277.659;
+                distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
+                if (distance < currentShortest) {
+                    currentShortest = distance;
+                    indexOfShortest = y;
+                }
+            }
+            System.out.println(lightArray[indexOfShortest].number);
+*/
+        double currentShortest = 200;
+        int indexOfShortest = 0;
+
+        for (int x = 0; x < 15; x++) {
+            double tempLat = lightArray[x].getLat();
+            double tempLongi = lightArray[x].getLongi();
+            double latDist = tempLat - 29.65;
+            double longDist = tempLongi - 277.659;
+            double distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
+            if (distance < currentShortest) {
+                currentShortest = distance;
+                indexOfShortest = x;
+            }
+
+
         }
     }
 
