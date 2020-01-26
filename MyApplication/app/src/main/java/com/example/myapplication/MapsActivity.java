@@ -199,8 +199,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int x = 0; x < 15; x++) {
             double tempLat = lightArray[x].getLat();
             double tempLongi = lightArray[x].getLongi();
-            double latDist = tempLat - 29.65;
-            double longDist = tempLongi - 277.659;
+            double latDist = tempLat - 29.6; //5
+            double longDist = tempLongi - 277.6; //59
             double distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
             if (distance < currentShortest) {
                 currentShortest = distance;
