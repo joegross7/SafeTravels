@@ -85,7 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         arrivedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45MUZJ2TDU", "oRz1LXTV/wrTwchFffEMYTiZOorHk3e7s4pF5Npt");
+                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45EHWAEWHJ", "VmcPxZg2HKRIlFscX3k0FOwNGJL6JeQVWfX1HmYG");
                 final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
                 final String message = "SafeTravels: Grant has arrived safely at his destination! Thanks for being a trusted friend :)";
                 final String phoneNumber = "+18133940109";
@@ -171,7 +171,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         lats = finalLocation.getLatitude();
         lon = finalLocation.getLongitude();
-        lon += 360.00000000;
+        lon += 360.0000000000000000000000000000000;
         LatLng currentLocation = new LatLng(lats, lon);
         mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));
@@ -220,8 +220,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         for (int x = 0; x < 15; x++) {
             double tempLat = lightArray[x].getLat();
             double tempLongi = lightArray[x].getLongi();
-            double latDist = tempLat - lats ; //5
-            double longDist = tempLongi - lon; //59
+            double latDist = tempLat - 29.6506 ; //5
+            double longDist = tempLongi - 277.6594; //59
             double distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
             if (distance < currentShortest) {
                 currentShortest = distance;
@@ -284,7 +284,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         helper++;
         if (helper == indexOfShortest) {
             LatLng light6 = new LatLng(29.6516, 277.65582);
-            mMap.addMarker(new MarkerOptions().position(light6).title("Light 6").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            mMap.addMarker(new MarkerOptions().position(light6).title("Light 6").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(light6));
         } else {
             LatLng light6 = new LatLng(29.6516, 277.65582);
@@ -348,7 +348,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.moveCamera(CameraUpdateFactory.newLatLng(light12));
         } else {
             LatLng light12 = new LatLng(29.65069, 277.65938);
-            mMap.addMarker(new MarkerOptions().position(light12).title("Light 12").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            mMap.addMarker(new MarkerOptions().position(light12).title("Light 12").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(light12));
         }
         helper++;
@@ -381,6 +381,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             mMap.addMarker(new MarkerOptions().position(light15).title("Light 15").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(light15));
         }
+       // if (helper == indexOfShortest) {
+            //LatLng light18 = new LatLng(29.6506, 277.6594);
+            //mMap.addMarker(new MarkerOptions().position(light18).title("Current Location").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+            //mMap.moveCamera(CameraUpdateFactory.newLatLng(light18));
+        //} else {
+          //  LatLng light14 = new LatLng(29.6506, 277.6594);
+          //  mMap.addMarker(new MarkerOptions().position(light14).title("Light 14").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+          //  mMap.moveCamera(CameraUpdateFactory.newLatLng(light14));
+        //}
         LatLng light16 = new LatLng(29.65035, 277.65628);
         mMap.addMarker(new MarkerOptions().position(light16).title("Light 15").visible(false));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(light16));

@@ -52,7 +52,7 @@ public class MessageActivity extends AppCompatActivity {
         mapActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45EHWAEWHJ", "VmcPxZg2HKRIlFscX3k0FOwNGJL6JeQVWfX1HmYG");
+                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAUM3J7RTUWYYZJHF6", "2xOzKGT/uv1WNh4ptdjntLxJv4yutKfHDQqbMUDt");
                 final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
                 final String message = "SafeTravels: Grant Wise is informing you he is beginning his commute. He will inform you upon arrival to his destination. Thank you for being a trusted friend :)";
                 final String phoneNumber = "+18133912376";
