@@ -30,6 +30,8 @@ import com.amazonaws.services.dynamodbv2.model.SourceTableDetails;
 import com.amazonaws.services.dynamodbv2.util.Tables;
 import com.amazonaws.services.sns.AmazonSNSClient;
 import com.amazonaws.services.sns.model.MessageAttributeValue;
+import com.amazonaws.services.sns.model.PublishRequest;
+import com.amazonaws.services.sns.model.PublishResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -77,42 +79,37 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
-
-        /////////////////////loationaondo
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // get the last know location from your location manager.
-        final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-        // now get the lat/lon from the location and do something with it.
-        System.out.println(location.getLatitude());
-        System.out.println(location.getLongitude());
-
-        class MyLocationListener implements LocationListener {
-            public void onLocationChanged(Location loc) {
-                String message = String.format(
-                        "New Location \n Longitude: %1$s \n Latitude: %2$s",
-                        loc.getLongitude(), loc.getLatitude()
-                );
+        final Button arrivedButton = (Button)findViewById(R.id.arrived_button);
+        arrivedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45NZNEFFGV", "OR8EOGojz5k/vaIUqio3Qlx8YlauxgLitmwMxRvH");
+                final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
+                final String message = "Grant has arrived safely at his destination! Thanks for being his trusted companion :)";
+                final String phoneNumber = "+19045027748";
+                final Map<String, MessageAttributeValue> smsAttributes = new HashMap<String, MessageAttributeValue>();
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try  {
+                            sendSMSMessage(snsClient, message, phoneNumber, smsAttributes);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                thread.start();
             }
-
-            public void onProviderDisabled(String arg0) {
-            }
-
-            public void onProviderEnabled(String provider) {
-            }
-
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-                lon = location.getLongitude();
-                lats = location.getLatitude();
-
-                System.out.println(lats);
-                System.out.println(lon);
-            }
-        }
+        });
 
 
+    }
+    public static void sendSMSMessage(AmazonSNSClient snsClient, String message, String phoneNumber, Map<String, MessageAttributeValue> smsAttributes) {
+        PublishResult result = snsClient.publish(new PublishRequest()
+                .withMessage(message)
+                .withPhoneNumber(phoneNumber)
+                .withMessageAttributes(smsAttributes));
+        System.out.println(result);
     }
 
 
