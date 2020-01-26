@@ -48,4 +48,10 @@ public class message extends AppCompatActivity {
     private BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAYO4MKXNF6QPMVBV3", "MiuoNvqvtGE9/xpnzQhIQGbjejGiWxD9xW3ECfYJ");
     private String topicArn = "arn:aws:sns:us-east-1:913171289914:SafeTravels";
 
+<<<<<<< Updated upstream
 }
+=======
+    }
+
+
+>>>>>>> Stashed changes
