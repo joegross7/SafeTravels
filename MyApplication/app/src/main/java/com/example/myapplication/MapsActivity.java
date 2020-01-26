@@ -34,7 +34,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mapFragment.getMapAsync(this);
         BasicAWSCredentials awsCreds = new BasicAWSCredentials("ACCESSKEY", "SECRET");
         AmazonDynamoDB ddb = new AmazonDynamoDBClient(awsCreds);
-        
+
     }
 
 
@@ -56,7 +56,4 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
-
-
-
 }

@@ -1,31 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map"
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MapsActivity" >
-
-    <TextView
-        android:id="@+id/title_text"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:text="SafeTravels"
-        android:textColor="#3F51B5"
-        android:textSize="48sp"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="128dp" />
-
-    <Button
-        android:id="@+id/walk_button"
-        android:layout_width="200dp"
-        android:layout_height="62dp"
-        android:text="Take a Walk"
-        map:layout_constraintEnd_toEndOf="parent"
-        map:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="272dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+    tools:context=".MapsActivity" />
