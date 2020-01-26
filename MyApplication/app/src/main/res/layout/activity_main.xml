@@ -37,7 +37,6 @@
         android:textColor="#ffffff"
         android:textSize="40sp"
         android:textStyle="bold"
-        android:background="@drawable/custom_button"
         app:layout_constraintBottom_toTopOf="@+id/start_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
