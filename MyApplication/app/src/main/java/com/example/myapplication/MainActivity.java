@@ -15,5 +15,5 @@ public class MainActivity extends AppCompatActivity {
     }
 
     Button mapActivityButton = (Button)findViewById(R.id.start_button);
-    mapActivityButton.set
+
 }
