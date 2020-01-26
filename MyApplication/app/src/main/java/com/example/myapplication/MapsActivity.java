@@ -12,6 +12,8 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
+import com.amazonaws.services.dynamodbv2.model.SourceTableDetails;
+import com.amazonaws.services.dynamodbv2.util.Tables;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,73 +43,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        System.out.println("I made it boys");
+        System.out.println("I made it boys PART2");
+
+
         BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAYO4MKXNF6QPMVBV3", "MiuoNvqvtGE9/xpnzQhIQGbjejGiWxD9xW3ECfYJ");
         AmazonDynamoDB ddb = new AmazonDynamoDBClient(awsCreds);
         String table_name = "Blue-Light-Locations";
+        System.out.println("PAST CREDENTIALS");
 
-        ScanRequest scanRequest = new ScanRequest().withTableName(table_name);
-        ScanResult result = ddb.scan(scanRequest);
-        int counter = 0;
-        String lat;
-        String longi;
-        for (Map<String, AttributeValue> item : result.getItems()){
+        ScanRequest scanRequest1 = new ScanRequest()
+                .withTableName("Blue-Light-Locations")
+                .withAttributesToGet("Blue-Light-Number", "Location");
+        System.out.println("created the scan request");
+        ScanResult result = ddb.scan(scanRequest1);
+        System.out.println("PAST SCANREQUEST!");
+        int counter;
+        String lat = "";
+        String longi = "";
+        for (Map<String, AttributeValue> item : result.getItems()) {
             Set<String> locations = item.keySet();
             counter = 0;
             for (String location : locations) {
-                if(counter == 0) {
+                if (counter == 0) {
                     lat = item.get(location).toString();
-                }
-                else if(counter == 1){
+                } else if (counter == 1) {
                     longi = item.get(location).toString();
                 }
                 counter++;
             }
             System.out.println(lat);
+            System.out.println(longi);
         }
-            while(it.hasNext()){
-
-            }
-                System.out.println(it.next());
-            }
-
-
-        }
-
-
-        HashMap<String, AttributeValue> key_to_get =
-                new HashMap<String,AttributeValue>();
-
-        key_to_get.put("DATABASE_NAME", new AttributeValue(name));
-
-        GetItemRequest request = null;
-        if (projection_expression != null) {
-            request = new GetItemRequest()
-                    .withKey(key_to_get)
-                    .withTableName(table_name)
-                    .withProjectionExpression(projection_expression);
-        } else {
-            request = new GetItemRequest()
-                    .withKey(key_to_get)
-                    .withTableName(table_name);
-        }
-
-        final AmazonDynamoDB ddb = AmazonDynamoDBClientBuilder.defaultClient();
-
-        try {
-            Map<String,AttributeValue> returned_item =
-                    ddb.getItem(request).getItem();
-            if (returned_item != null) {
-                Set<String> keys = returned_item.keySet();
-                for (String key : keys) {
-                    System.out.format("%s: %s\n",
-                            key, returned_item.get(key).toString());
-                }
-            } else {
-                System.out.format("No item found with the key %s!\n", name);
-            }
-        } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
-            System.exit(1);
+    }
 
 
 
