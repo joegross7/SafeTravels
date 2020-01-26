@@ -30,8 +30,17 @@ import java.util.Map;
 import java.util.Set;
 
 
+
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    /*
+    public static double distanceForm(int number, double currentLat, double CurrenLongi, ){
+        lat = do
+        distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
+        return distance
+    }
+     */
 
     private GoogleMap mMap;
 
@@ -110,8 +119,46 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             longi = coord.get(0);
             lat = coord.get(1);
 
-            lightArray[i] = new BlueLight(Integer.valueOf(number),Double.valueOf(lat),Double.valueOf(longi));
+            lightArray[i] = new BlueLight(Integer.valueOf(number), Double.valueOf(lat), Double.valueOf(longi));
             i++;
+        }
+
+/*
+            double currentShortest = 200;
+            int indexOfShortest = 0;
+            double tempLat = 1;
+            double tempLongi = 1;
+            double latDist = 1;
+            double longDist = 1;
+            double distance = 0;
+            for (int y = 0; y < 15; y++) {
+                tempLat = lightArray[y].lat;
+                tempLongi = lightArray[y].longi;
+                latDist = tempLat - 29.65;
+                longDist = tempLongi - 277.659;
+                distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
+                if (distance < currentShortest) {
+                    currentShortest = distance;
+                    indexOfShortest = y;
+                }
+            }
+            System.out.println(lightArray[indexOfShortest].number);
+*/
+        double currentShortest = 200;
+        int indexOfShortest = 0;
+
+        for (int x = 0; x < 15; x++) {
+            double tempLat = lightArray[x].getLat();
+            double tempLongi = lightArray[x].getLongi();
+            double latDist = tempLat - 29.65;
+            double longDist = tempLongi - 277.659;
+            double distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
+            if (distance < currentShortest) {
+                currentShortest = distance;
+                indexOfShortest = x;
+            }
+
+
         }
     }
 
