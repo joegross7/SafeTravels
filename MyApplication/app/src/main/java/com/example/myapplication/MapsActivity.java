@@ -49,17 +49,43 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAYO4MKXNF6QPMVBV3", "MiuoNvqvtGE9/xpnzQhIQGbjejGiWxD9xW3ECfYJ");
-        AmazonDynamoDB ddb = new AmazonDynamoDBClient(awsCreds);
+        final AmazonDynamoDB ddb = new AmazonDynamoDBClient(awsCreds);
         String table_name = "Blue-Light-Locations";
         System.out.println("PAST CREDENTIALS");
 
-        ScanRequest scanRequest1 = new ScanRequest()
+        final ScanRequest scanRequest1 = new ScanRequest()
                 .withTableName("Blue-Light-Locations")
                 .withAttributesToGet("Blue-Light-Number", "Location");
         System.out.println("created the scan request");
-        ScanResult result = ddb.scan(scanRequest1);
+
+
+        class BasicallyAThread implements Runnable {
+            private volatile ScanResult result;
+
+            @Override
+            public void run() {
+                result = ddb.scan(scanRequest1);
+            }
+
+            public ScanResult getValue() {
+                return result;
+            }
+        }
+
+        BasicallyAThread foo = new BasicallyAThread();
+        Thread thread = new Thread(foo);
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        ScanResult result = foo.getValue();
+
+
+
         System.out.println("PAST SCANREQUEST!");
-        int counter;
+        int counter = 0;
         String lat = "";
         String longi = "";
         for (Map<String, AttributeValue> item : result.getItems()) {
@@ -73,7 +99,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 counter++;
             }
+            System.out.print("LAT: ");
             System.out.println(lat);
+            System.out.print("Longi: ");
             System.out.println(longi);
         }
     }
