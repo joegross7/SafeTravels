@@ -138,27 +138,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             i++;
         }
 
-/*
-            double currentShortest = 200;
-            int indexOfShortest = 0;
-            double tempLat = 1;
-            double tempLongi = 1;
-            double latDist = 1;
-            double longDist = 1;
-            double distance = 0;
-            for (int y = 0; y < 15; y++) {
-                tempLat = lightArray[y].lat;
-                tempLongi = lightArray[y].longi;
-                latDist = tempLat - 29.65;
-                longDist = tempLongi - 277.659;
-                distance = Math.sqrt((latDist * latDist) + (longDist * longDist));
-                if (distance < currentShortest) {
-                    currentShortest = distance;
-                    indexOfShortest = y;
-                }
-            }
-            System.out.println(lightArray[indexOfShortest].number);
-*/
         double currentShortest = 200;
         int indexOfShortest = 0;
 
