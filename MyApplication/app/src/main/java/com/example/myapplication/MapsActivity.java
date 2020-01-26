@@ -109,12 +109,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
             longi = coord.get(0);
             lat = coord.get(1);
-            System.out.print("Number: ");
-            System.out.println(number);
-            System.out.print("Latitude: ");
-            System.out.println(lat);
-            System.out.print("Longitude: ");
-            System.out.println(longi);
+
             lightArray[i] = new BlueLight(Integer.valueOf(number),Double.valueOf(lat),Double.valueOf(longi));
             i++;
         }

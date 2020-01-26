@@ -18,7 +18,7 @@ public class BlueLight {
         return lat;
     }
 
-    public double longi(){
+    public double getLongi(){
         return longi;
     }
 }
