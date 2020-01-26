@@ -13,41 +13,42 @@
         style="@android:style/Widget.Material.Light.Button.Small"
         android:layout_width="248dp"
         android:layout_height="77dp"
-        android:layout_marginBottom="336dp"
+        android:layout_marginBottom="348dp"
         android:text="Message Contact"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/continue_button"
-        style="@android:style/Widget.Material.Light.Button.Small"
-        android:layout_width="248dp"
-        android:layout_height="77dp"
-        android:layout_marginBottom="415dp"
-        android:text="Continue"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintHorizontal_bias="0.84"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="250dp"
         android:layout_height="74dp"
-        android:layout_marginTop="60dp"
-        android:layout_marginBottom="106dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginBottom="64dp"
         android:fontFamily="@font/inconsolata"
         android:foregroundGravity="center_vertical|center_horizontal"
         android:gravity="center|center_horizontal"
-        android:text="Send message?"
+        android:text="Send a message?"
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/continue_button"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/continue_button"
+        style="@android:style/Widget.Material.Light.Button.Small"
+        android:layout_width="248dp"
+        android:layout_height="77dp"
+        android:layout_marginBottom="428dp"
+        android:text="Continue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.84"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

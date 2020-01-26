@@ -61,6 +61,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
      */
 
+
+
     private GoogleMap mMap;
     public static double lats;
     public static double lon;
@@ -85,7 +87,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             public void onClick(View v) {
                 BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45NZNEFFGV", "OR8EOGojz5k/vaIUqio3Qlx8YlauxgLitmwMxRvH");
                 final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
-                final String message = "Grant has arrived safely at his destination! Thanks for being his trusted companion :)";
+                final String message = "SafeTravels: Grant has arrived safely at his destination! Thanks for being a trusted friend :)";
                 final String phoneNumber = "+19045027748";
                 final Map<String, MessageAttributeValue> smsAttributes = new HashMap<String, MessageAttributeValue>();
                 Thread thread = new Thread(new Runnable() {
@@ -99,6 +101,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
                 thread.start();
+                Intent startIntent = new Intent(getApplicationContext(), MainActivity.class);
+                //how to pass information
+                startActivity(startIntent);
             }
         });
 
