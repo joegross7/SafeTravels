@@ -13,7 +13,7 @@ android:orientation="vertical" >
         android:layout_weight="50" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/arrived_button"
         android:layout_width="match_parent"
         android:layout_height="42dp"
         android:layout_weight="50"

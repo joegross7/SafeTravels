@@ -30,7 +30,7 @@ public class message extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message2);
         String contactNumber = "+19045027748";
-
+/*
         AmazonSNSClient(AWSCredentials awsCredentials);
 
         final CreateTopicRequest createTopicRequest = new CreateTopicRequest("MyTopic");
@@ -48,4 +48,7 @@ public class message extends AppCompatActivity {
     private BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIAYO4MKXNF6QPMVBV3", "MiuoNvqvtGE9/xpnzQhIQGbjejGiWxD9xW3ECfYJ");
     private String topicArn = "arn:aws:sns:us-east-1:913171289914:SafeTravels";
 
+    }
+*/
+    }
 }

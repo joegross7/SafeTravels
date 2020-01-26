@@ -1,8 +1,19 @@
 package com.example.myapplication;
 
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
@@ -14,6 +25,8 @@ import com.amazonaws.services.dynamodbv2.model.ScanRequest;
 import com.amazonaws.services.dynamodbv2.model.ScanResult;
 import com.amazonaws.services.dynamodbv2.model.SourceTableDetails;
 import com.amazonaws.services.dynamodbv2.util.Tables;
+import com.amazonaws.services.sns.AmazonSNSClient;
+import com.amazonaws.services.sns.model.MessageAttributeValue;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,7 +42,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-
+import static com.example.myapplication.MessageActivity.sendSMSMessage;
 
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -43,6 +56,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
 
     private GoogleMap mMap;
+    public static double lats;
+    public static double lon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -160,11 +175,56 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
         }
+        /////////////////////loationaondo
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // get the last know location from your location manager.
+        final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        // now get the lat/lon from the location and do something with it.
+        System.out.println(location.getLatitude());
+        System.out.println(location.getLongitude());
+
+        class MyLocationListener implements LocationListener {
+            public void onLocationChanged(Location loc) {
+                String message = String.format(
+                        "New Location \n Longitude: %1$s \n Latitude: %2$s",
+                        loc.getLongitude(), loc.getLatitude()
+                );
+            }
+
+            public void onProviderDisabled(String arg0) {
+            }
+
+            public void onProviderEnabled(String provider) {
+            }
+
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+                lon = location.getLongitude();
+                lats = location.getLatitude();
+
+                System.out.println(lats);
+                System.out.println(lon);
+            }
+        }
+        awsCreds = new BasicAWSCredentials("AKIA5JHKAC45NZNEFFGV", "OR8EOGojz5k/vaIUqio3Qlx8YlauxgLitmwMxRvH");
+        final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
+        final String message = "test                                                 icle";
+        final String phoneNumber = "+19045027748";
+        final Map<String, MessageAttributeValue> smsAttributes = new HashMap<String, MessageAttributeValue>();
+        thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try  {
+                    sendSMSMessage(snsClient, message, phoneNumber, smsAttributes);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
-
-
-
-
 
 
     /**
@@ -176,12 +236,26 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // get the last know location from your location manager.
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            //    Activity#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
 
+        }
+        final Location location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        lats = location.getLatitude();
+        lon = location.getLongitude();
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
+        LatLng sydney = new LatLng(lats, lon);
         mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
