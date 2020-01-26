@@ -7,24 +7,21 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MessageActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_message);
 
-        Button messageActivityButton = (Button)findViewById(R.id.start_button);
-        messageActivityButton.setOnClickListener(new View.OnClickListener() {
+        Button mapActivityButton = (Button)findViewById(R.id.continue_button);
+        mapActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent startIntent = new Intent(getApplicationContext(), MessageActivity.class);
+                Intent startIntent = new Intent(getApplicationContext(), MapsActivity.class);
                 //how to pass information
                 startActivity(startIntent);
             }
         });
-
     }
-
-
 }
