@@ -85,7 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         arrivedButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45EHWAEWHJ", "VmcPxZg2HKRIlFscX3k0FOwNGJL6JeQVWfX1HmYG");
+                BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45MUZJ2TDU", "oRz1LXTV/wrTwchFffEMYTiZOorHk3e7s4pF5Npt");
                 final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
                 final String message = "SafeTravels: Grant has arrived safely at his destination! Thanks for being a trusted friend :)";
                 final String phoneNumber = "+18133940109";
@@ -171,7 +171,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         lats = finalLocation.getLatitude();
         lon = finalLocation.getLongitude();
-        lon += 360.0000000000000000000000000000000;
+        lon += 360.00000000;
         LatLng currentLocation = new LatLng(lats, lon);
         mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(currentLocation));

@@ -55,7 +55,7 @@ public class MessageActivity extends AppCompatActivity {
                 BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45EHWAEWHJ", "VmcPxZg2HKRIlFscX3k0FOwNGJL6JeQVWfX1HmYG");
                 final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
                 final String message = "SafeTravels: Grant Wise is informing you he is beginning his commute. He will inform you upon arrival to his destination. Thank you for being a trusted friend :)";
-                final String phoneNumber = "+19045027748";
+                final String phoneNumber = "+18133912376";
                 final Map<String, MessageAttributeValue> smsAttributes = new HashMap<String, MessageAttributeValue>();
                 Thread thread = new Thread(new Runnable() {
                     @Override
