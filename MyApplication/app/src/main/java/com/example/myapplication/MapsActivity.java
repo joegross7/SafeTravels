@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -13,6 +14,8 @@ import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -187,22 +190,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 System.out.println(lon);
             }
         }
-        awsCreds = new BasicAWSCredentials("AKIA5JHKAC45NZNEFFGV", "OR8EOGojz5k/vaIUqio3Qlx8YlauxgLitmwMxRvH");
-        final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
-        final String message = "test                                                 icle";
-        final String phoneNumber = "+19045027748";
-        final Map<String, MessageAttributeValue> smsAttributes = new HashMap<String, MessageAttributeValue>();
-        thread = new Thread(new Runnable() {
+        Button arrivalButton = (Button)findViewById(R.id.arrived_button);
+        arrivalButton.setOnClickListener(new View.OnClickListener() {
+            
             @Override
-            public void run() {
-                try  {
-                    sendSMSMessage(snsClient, message, phoneNumber, smsAttributes);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onClick(View v) {
+                Intent startIntent = new Intent(getApplicationContext(), MapsActivity.class);
+                //how to pass information
+                startActivity(startIntent);
             }
         });
-        thread.start();
+
     }
 
 
