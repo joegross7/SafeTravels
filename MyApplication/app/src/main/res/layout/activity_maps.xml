@@ -20,6 +20,7 @@ android:orientation="vertical" >
         android:layout_weight="50"
         android:fontFamily="sans-serif-smallcaps"
         android:text="Click to end commute"
+        android:background="@drawable/custom_button"
         android:textColor="#111111"
         android:textSize="30sp" />
 
