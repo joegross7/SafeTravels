@@ -88,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 BasicAWSCredentials awsCreds = new BasicAWSCredentials("AKIA5JHKAC45EHWAEWHJ", "VmcPxZg2HKRIlFscX3k0FOwNGJL6JeQVWfX1HmYG");
                 final AmazonSNSClient snsClient = new AmazonSNSClient(awsCreds);
                 final String message = "SafeTravels: Grant has arrived safely at his destination! Thanks for being a trusted friend :)";
-                final String phoneNumber = "+18133940109";
+                final String phoneNumber = "+18133912376";
                 final Map<String, MessageAttributeValue> smsAttributes = new HashMap<String, MessageAttributeValue>();
                 Thread thread = new Thread(new Runnable() {
                     @Override
